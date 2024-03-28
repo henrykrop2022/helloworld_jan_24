@@ -24,6 +24,13 @@ pipeline {
                 sh 'mvn test'
             }
         }
+        stage("SonarQube scan"){
+        steps{
+          withSonarQubeEnv('sonarQube') {
+          sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=henrykrop2022_geolocation-2024'
+           }
+        }   
+      }
         stage('Build Image') {
             steps {
                 script{
